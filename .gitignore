@@ -1,0 +1,5 @@
+/vendor/
+.env
+/public/public
+tareas.php
+Procfile

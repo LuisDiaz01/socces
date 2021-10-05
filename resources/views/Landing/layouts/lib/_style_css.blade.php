@@ -1,0 +1,12 @@
+<link rel="stylesheet" href="{{ asset('landing/startup/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/magnific-popup.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/themify-icons.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/nice-select.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/flaticon.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/gijgo.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/animate.min.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/slick.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/slicknav.css') }}">
+<link rel="stylesheet" href="{{ asset('landing/startup/css/style.css') }}">
