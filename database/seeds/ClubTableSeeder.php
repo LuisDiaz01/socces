@@ -15,13 +15,13 @@ class ClubTableSeeder extends Seeder
         //
         Club::create([
         	'image'=>'LogoTopel.png',
-			'name'=>'Topel',
-			'mision'=>'Random mision segun el director o el administador',
+			'name'=>'Academia Leon Topel Wortman',
+			'mision'=>'Nuestra mision principal es formar personas y promover la actividad fisica a travéz del futbol, contribuyendo al desarrollo integral de los niños, niñas y adolescentes con talento futbolistico, fomentando su formación tanto en la práctica de la disciplina, como en el cultivo de valores y principios que contribuyan en su formación integral.',
 			'history'=>'Random historia segun el director o el administador',
 			'rif'=>'R-1232ASDG1',
 			'email'=>'topelClub@gmil.com',
 			'phone_number'=>'(0000)000-00-00',
-			'address'=>'Bucaral, Municipio Chacao, Edo. Caracas',
+			'address'=>'San Juan de los Morros, Municipio Juan German Roscio, Edo. Guarico',
 			'stadium_id'=>1,
 			'network_id'=>1,
         ]);
@@ -32,7 +32,7 @@ class ClubTableSeeder extends Seeder
 			'rif'=>'R-VISITANTE1',
 			'email'=>'Visitante1Club@gmil.com',
 			'phone_number'=>'(1111)111-11-11',
-			'address'=>'San Juan De los Morros, Municipio Roscion, Edo. Guarico',
+			'address'=>'San Juan De los Morros, Municipio Roscio, Edo. Guarico',
 			'stadium_id'=>2,
 			'network_id'=>2,
 			

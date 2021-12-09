@@ -18,7 +18,7 @@
                             <ul id="navigation">
                                 <li><a  href="{{ route('landing.index') }}">Inicio</a></li>
                                 <li><a  href="{{ route('landing.template') }}">Plantilla</a></li>
-                                <li><a  href="{{ route('landing.encounter') }}">Calendario</a></li>
+                                <li><a  href="{{ route('landing.encounter') }}">Actividades</a></li>
                                 <li><a  href="{{ route('landing.galery') }}">Noticias</a></li>
                                 <li><a  href="#!">Contactos</a></li>
                                 <!-- <li><a href="#">paginas <i class="ti-angle-down"></i></a>
@@ -53,7 +53,7 @@
                     <div class="col-lg-10 col-md-10">
                         <div class="slider_text">
                             <h3 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".1s">
-                                Bienvenidos al club {{$club->name}}. 
+                                Bienvenidos a la {{$club->name}}. 
                             </h3>
                         </div>
                     </div>

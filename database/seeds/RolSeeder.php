@@ -22,11 +22,23 @@ class RolSeeder extends Seeder
         ]);
         Rol::create([
             'id'=>3,
-            'rol'=>'Personal Administrativo',
+            'rol'=>'Presidencia',
         ]);
         Rol::create([
             'id'=>4,
-            'rol'=>'Director',
+            'rol'=>'Vice-Presidencia',
+        ]);
+        Rol::create([
+            'id'=>5,
+            'rol'=>'Secretaria',
+        ]);
+        Rol::create([
+            'id'=>6,
+            'rol'=>'Tesoreria',
+        ]);
+        Rol::create([
+            'id'=>7,
+            'rol'=>'Primer Vocal',
         ]);
     }
 }

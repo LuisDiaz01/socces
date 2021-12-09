@@ -8,26 +8,58 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section_title text-center mb-90">
-                        <h3 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">Galeria
+                        <h3 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">{{ $club->name }}
                           <hr style="background-color:rgb(129,75,204);width:2em;margin-top:0px;padding-top:0px">
                         </h3>
                     </div>
                 </div>
             </div>
             <div class="row">
+                @php 
+                    $cont=0;
+                @endphp
                 @foreach($post as $keys=>$item)
-	                <div class="col-lg-{{ rand(2,6) }} col-md-12">
+                    @if($cont==0)
+                        @if($post->count()!=$keys+1)
+                            @php 
+                            $rand=rand(4,7);
+                            @endphp
+                        @else
+                            @php 
+                            $rand=12;
+                            @endphp    
+                        @endif
+                    @else
+                        @for($i=4;$i<8;$i++)
+                            @if($acum==$i)
+                                @php 
+                                $w=12-$i;
+                                $rand=$w;
+                                @endphp
+                            @endif
+                        @endfor
+                    @endif
+                    @php 
+                        $acum=$rand
+                    @endphp
+	                <div class="col-lg-{{ $rand }} col-md-6">
 	                    <div class="single_Portfolio wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">
 	                        <div class="portfolio_thumb">
 	                            <img src="{{ asset('landing/startup/img/slider_'. $keys . '.jpg') }}" alt="{{ 'landing/startup/img/slider_'. $keys . '.jpg' }}">
 	                        </div>
 	                        <div class="portfolio_hover">
 	                            <div class="title">
-	                                <a class="boxed-btn3" href="#">{{$item->title }} {{ $keys }}</a>
+	                                <a class="boxed-btn3" href="#">{{$item->title }}</a>
 	                            </div>
 	                        </div>
 	                    </div>
 	                </div>
+                    @if($cont==1)
+                        @php $cont=0; @endphp 
+                    @else
+                        @php $cont=1; @endphp 
+                    @endif
+                    
                 @endforeach
                
             </div>
@@ -42,7 +74,7 @@
             <div class="about_info">
               <div class="section_title white_text">
                 <h3 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">
-                    El Club {{$club->name}} tiene su historia
+                    {{$club->name}} tiene su historia
                 </h3>
                 <h4 class="wow fadeInUp text-white" style="text-align:center" data-wow-duration="1s" data-wow-delay=".4s">
                 <hr style="background-color:white;text-align:left;width:2rem">
@@ -69,7 +101,7 @@
             </div>
             <div class="row">
                 @forelse($user as $item)
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg col-md">
                         <div class="single_team wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
                             <div class="team_thumb">
                                 <img style="width:100%;height:20rem" src="{{asset('landing/startup/img/team/'.rand(1,3).'.png' )}}" alt="">

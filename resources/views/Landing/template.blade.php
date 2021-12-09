@@ -23,10 +23,9 @@
                         <table class="table align-items-center table-hover table-striped table-hover table-flush">
                             <thead>
                                 <tr>
-                                    <th scope="col">Cedula</th>
                                     <th scope="col">Nombre y Apellido</th>
-                                    <th scope="col">E-mail</th>
-                                    <th scope="col">Fecha de Nacimiento</th>
+                                    <th scope="col">Goles</th>
+                                    <th scope="col">Asistensias</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,24 +34,14 @@
                             <tr id='{{$item->id}}'>
                                 <input type="hidden" id='id{{$item->id}}' value='{{$item->id}}'>
 
-                                <td id='td_Dni{{$item->id}}'>
-                                    <label id='labelDni{{$item->id}}'>{{$item->Users->dni}}</label>
-                                    <input class='d-none' id="dni{{$item->id}}" value="{{$item->Users->dni}}">
-                                </td>
-
                                 <td id='td_Name{{$item->id}}'>
-                                    <label id='labelName{{$item->id}}'>{{$item->Users->name}} {{ $item->Users->lastname }}</label>
-                                    <input class='d-none' id="name{{$item->id}}" value="{{$item->Users->name}}">
-                                    <input class='d-none' id="lastname{{$item->id}}" value="{{$item->Users->lastname}}">
+                                    <label id='labelName{{$item->id}}'>{{$item->Athlete->name}} {{ $item->Athlete->lastname }}</label>
                                 </td>
-                                <td id='td_Email{{$item->id}}'>
-                                    <label id='labelEmail{{$item->id}}'>{{$item->Users->email}}</label>
-                                    <input class='d-none' id="email{{$item->id}}" value="{{$item->Users->email}}">
+                                <td>
+                                    <label id='labelGol{{$item->id}}'>{{$item->Athlete->goles}}</label>
                                 </td>
-
-                                <td id='td_Create{{$item->id}}'>
-                                    <label id='labelDate_n{{$item->id}}'>{{$item->Users->date_n}}</label>
-                                    <input class='d-none' id="date_n{{$item->id}}" value="{{$item->Users->date_n}}">
+                                <td>
+                                    <label id='labelAsistencias{{$item->id}}'>{{$item->Athlete->attendances}}</label>
                                 </td>
                             </tr>
                             @endif

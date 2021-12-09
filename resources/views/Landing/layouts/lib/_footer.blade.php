@@ -29,7 +29,7 @@
                     <ul class="text-white">
                         <li><a class="text-white" href="{{ route('landing.index') }}">Inicio</a></li>
                         <li><a class='text-white' href="{{ route('landing.template') }}">Plantilla</a></li>
-                        <li><a class='text-white' href="{{ route('landing.encounter') }}">Calendario</a></li>
+                        <li><a class='text-white' href="{{ route('landing.encounter') }}">Actividades</a></li>
                         <li><a class='text-white' href="{{ route('landing.galery') }}">Noticias</a></li>
                         <li><a class='text-white' href="#">Contactos</a></li>
                     </ul>
@@ -41,7 +41,6 @@
                     <hr style="background-color:white; width:2em;">
                     <ul class="text-white">
                         <li>Estadio: {{$club->Stadia->name}}</li>
-                        <li>Lugar de entrenamiento: {{$club->Stadia->name}} </li>
                     </ul>
                     <hr style="position:absolute;top:-1rem;right:-1%;background:white;background-color:white;height:15em;padding:0px;margin-right:2em;margin:0px;width:.15rem">
                 </div>
@@ -59,7 +58,7 @@
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4 col-md-12">
                     <div class="socail_links" style="text-align: center!important;">
-                        <h4 style="color:white">El club {{$club->name}} en las redes sociales.</h4>
+                        <h4 style="color:white">{{$club->name}} en las redes sociales.</h4>
                         <ul>
                             <li><a class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s" href="{{$club->Networks->facebook}}"> <i class="fa fa-facebook"></i> </a></li>
                             <li><a class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s" href="{{$club->Networks->twitter}}"> <i class="fa fa-twitter"></i> </a></li>

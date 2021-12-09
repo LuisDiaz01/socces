@@ -1,82 +1,27 @@
 @extends('layouts.appDashboard')
-@section('title','| Plantilla')
+@section('title','Plantilla')
 @section('nameTitleTemplate','Plantilla')
 @section('modales')
+@include('layouts.modales.Athlete.CreateAthleteModal')
 @include('layouts.modales.Template.addAtleta')
-{{-- 
-@include('layouts.modales.Template.Template') 
-@include('layouts.modales.Areas.modalShowArea')
---}}
-@endsection
-@section('header_js')
-<link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">
-
 @endsection
 @section('js')
-<script src="{{  asset('plugins/select2/select2.full.min.js') }}"></script>
 <script>
-  $('.select2').select2({
-    placeholder: 'Atletas',
-    cache: true,
-    delay: 250,
-    minimumInputLength: 1,
-    templateResult: formatRepo,
-    templateSelection: formatRepoSelection,
-    ajax: {
-      type:'GET',
-      url: APP_URL+"/User/SearchAtleta",
-      data: function (params) {
-        var query = {
-          dni: params.term,
+  $('#dni_input').on('keyup',function(){
+    $.ajax({
+      type: "GET",
+      url: APP_URL+"/Athlete/SearchAthleta/"+ $('#dni_input').val(),
+      dataType: "json",
+      success: function(response){
+        body='Cedula - Nombre'
+        for (var i = response.length - 1; i >= 0; i--) {
+          body+='<li>'+response[i].dni+' - '+response[i].name + '</li>';
         }
-
-      // Query parameters will be ?search=[term]&type=public
-      return query;
-    },processResults: function (data, params) {
-      return {
-        results: data.results,
-      };
-    }
-
-  }
-});
-
-function formatRepo (repo) {
-  if (repo.loading) {
-    return repo.text;
-  }
-
-  var $container = $(
-    "<div class='select2-result-repository clearfix'>" +
-        "<div class='select2-result-repository__title'></div>" +
-        "<div class='select2-result-repository__description'></div>" +
-    "</div>"
-  );
-
-  $container.find(".select2-result-repository__title").text(repo.name +' ' + repo.lastname );
-  $container.find(".select2-result-repository__description").text(repo.dni);
-  
-  return $container;
-}
-
-function formatRepoSelection (repo) {
-  return repo.full_name || repo.text;
-}
-
-
-
-</script>
-{{-- <script>
- /* $('textarea').wysihtml5({
-    toolbar: { fa: true }
-  });*/
-  /*asignacion de datos*/
-  function show(id){
-    $('#labelArea').html($('#td_Area'+id).html());
-    $('#labelAddress').html($('#td_Address'+id).html());
-    $('#labelCreate').html($('#td_Create'+id).html());
-    $('#labelEdit').html($('#td_Edit'+id).html());
-  }
+        html='<ul>'+body+'</ul>';
+        $('#search').html(html);
+      }
+    });
+  });
 
   $('select[name="address_id"]').hover(function(){
     var select=$('select[name="address_id"] option:selected');
@@ -86,9 +31,52 @@ function formatRepoSelection (repo) {
     }     
   });
 
-  });
-</script> --}}
+</script>
 @endsection
+@section('headerContent')
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <span class="h5 font-weight-bold">Agregar un fichaje de un atleta</span>
+            </div>
+            <div class="col-auto">
+              <a href="#" data-target='#addAtleta' data-toggle='modal' title data-original-title="Agregar Atleta" class='text-white'>
+                <div class="btn-icons btn-rounded btn bg-danger text-white shadow">
+                  <i class="fa fa-plus text-white"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-3 col-md-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <span class="h5 font-weight-bold">Crear un atleta</span>
+            </div>
+            <div class="col-auto">
+              <a href="#" data-target='#createAthlete' data-toggle='modal' title data-original-title="Agregar Atleta" class='text-white'>
+                <div class="btn-icons btn-rounded btn bg-danger text-white shadow">
+                  <i class="fa fa-plus text-white"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+
 @section('content')
 <div class="row">
   @forelse($division as $row)
@@ -99,34 +87,18 @@ function formatRepoSelection (repo) {
           <div class="col">
             <h4>{{$row->division}}</h4>
           </div>
-          <div class="col">
-            <div class="card card-stats">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col">
-                    <span class="h5 font-weight-bold">Agregar Atleta a la Plantilla</span>
-                  </div>
-                  <div class="col-auto">
-                    <a href="#" data-target='#addAtleta' data-toggle='modal' title data-original-title="Agregar Template" class='text-white'>
-                      <div class="btn-icons btn-rounded btn bg-danger text-white shadow">
-                        <i class="fa fa-plus text-white"></i>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="card-body table-responsive">
         <table class="table align-items-center table-hover table-striped table-hover table-flush">
           <thead>
             <tr>
-              <th scope="col">Cedula</th>
               <th scope="col">Nombre y Apellido</th>
+              <th scope="col">Cedula</th>
               <th scope="col">E-mail</th>
               <th scope="col">Fecha de Nacimiento</th>
+              <th scope="col">Goles</th>
+              <th scope="col">Asistencias</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -135,25 +107,33 @@ function formatRepoSelection (repo) {
             @if($row->id == $item->division_id)
             <tr id='{{$item->id}}'>
               <input type="hidden" id='id{{$item->id}}' value='{{$item->id}}'>
+              <td id='td_Name{{$item->id}}'>
+                <label id='labelName{{$item->id}}'>{{$item->Athlete->name}} {{ $item->Athlete->lastname }}</label>
+                <input class='d-none' id="name{{$item->id}}" value="{{$item->Athlete->name}}">
+                <input class='d-none' id="lastname{{$item->id}}" value="{{$item->Athlete->lastname}}">
+              </td>
 
               <td id='td_Dni{{$item->id}}'>
-                <label id='labelDni{{$item->id}}'>{{$item->Users->dni}}</label>
-                <input class='d-none' id="dni{{$item->id}}" value="{{$item->Users->dni}}">
+                <label id='labelDni{{$item->id}}'>{{$item->Athlete->dni}}</label>
+                <input class='d-none' id="dni{{$item->id}}" value="{{$item->Athlete->dni}}">
               </td>
 
-              <td id='td_Name{{$item->id}}'>
-                <label id='labelName{{$item->id}}'>{{$item->Users->name}} {{ $item->Users->lastname }}</label>
-                <input class='d-none' id="name{{$item->id}}" value="{{$item->Users->name}}">
-                <input class='d-none' id="lastname{{$item->id}}" value="{{$item->Users->lastname}}">
-              </td>
               <td id='td_Email{{$item->id}}'>
-                <label id='labelEmail{{$item->id}}'>{{$item->Users->email}}</label>
-                <input class='d-none' id="email{{$item->id}}" value="{{$item->Users->email}}">
+                <label id='labelEmail{{$item->id}}'>{{$item->Athlete->email}}</label>
+                <input class='d-none' id="email{{$item->id}}" value="{{$item->Athlete->email}}">
+              </td>
+              <td id='td_Create{{$item->id}}'>
+                <label id='labelDate_n{{$item->id}}'>{{ $item->Athlete->date_n }}</label>
+                <input class='d-none' id="date_n{{$item->id}}" value="{{$item->Athlete->date_n}}">
               </td>
 
-              <td id='td_Create{{$item->id}}'>
-                <label id='labelDate_n{{$item->id}}'>{{$item->Users->date_n}}</label>
-                <input class='d-none' id="date_n{{$item->id}}" value="{{$item->Users->date_n}}">
+              <td id='td_Goles{{$item->id}}'>
+                <label id='labelGoles{{$item->id}}'>{{ $item->Athlete->goles }}</label>
+                <input class='d-none' id="goles{{$item->id}}" value="{{$item->Athlete->goles}}">
+              </td>
+              <td id='td_Attendance{{$item->id}}'>
+                <label id='labelAttendance{{$item->id}}'>{{ $item->Athlete->attendances }}</label>
+                <input class='d-none' id="attendance{{$item->id}}" value="{{$item->Athlete->attendances}}">
               </td>
 
               <td>

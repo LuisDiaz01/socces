@@ -15,9 +15,9 @@ class CreateTemplatesTable extends Migration
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')
-            ->on('users')
+            $table->unsignedInteger('athlete_id')->nullable();
+            $table->foreign('athlete_id')->references('id')
+            ->on('athletes')
             ->onDelete('CASCADE');
 
             $table->unsignedInteger('division_id')->nullable();

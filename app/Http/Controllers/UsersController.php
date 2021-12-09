@@ -16,11 +16,6 @@ class UsersController extends Controller
         $user=User::all();
         return view('Users.index',compact('user'));
     } 
-
-    public function searchAtleta(Request $request){
-        $user=User::where('dni','like','%'.$request->dni.'%')->get();
-        return $user;
-    }
     
     public function profile(){
         return view('profile.index');

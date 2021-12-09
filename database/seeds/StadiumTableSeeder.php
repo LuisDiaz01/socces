@@ -11,7 +11,7 @@ class StadiumTableSeeder extends Seeder
      */
     public function run()
     {
-    	
+    	Stadium::create(['name'=>'Leon Topel Wortman']);
         factory(Stadium::class,10)->create();
     }
 }

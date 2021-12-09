@@ -1,5 +1,5 @@
 @extends('layouts.appDashboard')
-@section('title','| Diviciones')
+@section('title','Diviciones')
 @section('nameTitleTemplate','Diviciones')
 @section('js')
 <script>

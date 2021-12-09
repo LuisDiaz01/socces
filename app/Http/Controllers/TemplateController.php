@@ -4,7 +4,9 @@ namespace Club\Http\Controllers;
 
 use Club\Template;
 use Club\Division;
+use Club\Athlete;
 use Illuminate\Http\Request;
+use Redirect;
 
 class TemplateController extends Controller
 {
@@ -37,7 +39,13 @@ class TemplateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $athlete=Athlete::where('dni',$request->dni)->first();
+
+        $template=Template::create([
+            'athlete_id'=>$athlete->id,
+            'division_id'=>$request->division_id,
+        ]);
+        return Redirect::route('Template.index')->withSuccess('Se ha fichado el atleta con exito');
     }
 
     /**

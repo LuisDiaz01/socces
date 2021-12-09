@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+ 
 /*
 Route::get('/', function () {
 	return view('auth.login');
@@ -80,6 +80,7 @@ Route::group(['middleware'=>['verifiUser']],function(){
 		Route::apiResource('/Rol','RolController'); //controlador costruido
 		Route::apiResource('/Stadium','StadiumController');
 		Route::apiResource('/Template','TemplateController');
+		Route::apiResource('/Athlete','AthleteController');
 		Route::apiResource('/Users','UsersController');
 		
 		Route::get('/PostCreate', ['as'=>'Post.create','uses'=>'PostController@create']);
@@ -90,7 +91,7 @@ Route::group(['middleware'=>['verifiUser']],function(){
 		/*
 		| start Rutas AJAX
 		*/
-		Route::GET('/User/SearchAtleta','UsersController@searchAtleta');
+		Route::GET('/Athlete/SearchAthleta/{dni}','AthleteController@searchAthleta');
 		/*
 		| end Rutas AJAX
 		*/
