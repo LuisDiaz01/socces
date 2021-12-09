@@ -32,7 +32,6 @@
                                     <td class="text-center">vs</td>
                                     <td class="text-center">{{ $item->ClubVisitor->name }}</td>
                                     <td class="text-center bg-info">{{ $item->start }}</td>
-                                    <td class="text-center bg-info">{{ $item }}</td>
                                 </tr>
                             @empty
                                 <tr><td>NO HAY ENCUENTROS</td></tr>
