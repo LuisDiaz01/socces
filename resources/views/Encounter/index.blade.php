@@ -6,179 +6,107 @@
 @endsection
 @section('js')
 <script>
- $(function () {
 
-    /* initialize the external events
-    -----------------------------------------------------------------*/
-    function ini_events(ele) {
-      ele.each(function () {
-
-        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-        // it doesn't need to have a start or end
-        var eventObject = {
-          title: $.trim($(this).text()) // use the element's text as the event title
-        }
-
-        // store the Event Object in the DOM element so we can get to it later
-        $(this).data('eventObject', eventObject)
-
-        // make the event draggable using jQuery UI
-        $(this).draggable({
-          zIndex        : 1070,
-          revert        : true, // will cause the event to go back to its
-          revertDuration: 0  //  original position after the drag
-        })
-
-      })
-    }
-
-    ini_events($('#external-events div.external-event'))
-
-    /* initialize the calendar
-    -----------------------------------------------------------------*/
-    //Date for the calendar events (dummy data)
-    var date = new Date()
-    var d    = date.getDate(),
-    m    = date.getMonth(),
-    y    = date.getFullYear()
-    $('#calendar').fullCalendar({
-      header    : {
-        left  : 'prev,next today',
-        center: 'title',
-        right : ''
-      },
-      buttonText: {
-        today: 'today',
-        month: 'month',
-        week : 'week',
-        day  : 'day'
-      },
-      monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-      monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-      dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
-      dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
-
-      //Random default events
-      events    : { url: APP_URL+"/get_encounter"},
-      editable  : true,
-      droppable : true, // this allows things to be dropped onto the calendar !!!
-      
-      drop      : function (date, allDay) { // this function is called when something is dropped
-
-        // retrieve the dropped element's stored Event Object
-        var originalEventObject = $(this).data('eventObject')
-
-        // we need to copy it, so that multiple events don't have a reference to the same object
-        var copiedEventObject = $.extend({}, originalEventObject)
-
-        // assign it the date that was reported
-        copiedEventObject.start           = date
-        copiedEventObject.allDay          = allDay
-        copiedEventObject.backgroundColor = $(this).css('background-color')
-        copiedEventObject.borderColor     = $(this).css('border-color')
-
-        // render the event on the calendar
-        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
-
-        // is the "remove after drop" checkbox checked?
-        if ($('#drop-remove').is(':checked')) {
-          // if so, remove the element from the "Draggable Events" list
-          $(this).remove()
-        }
-
+  $(document).ready(function () {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
-    })
-
-    /* ADDING EVENTS */
-    var currColor = '#3c8dbc' //Red by default
-    //Color chooser button
-    var colorChooser = $('#color-chooser-btn')
-    $('#color-chooser > li > a').click(function (e) {
-      e.preventDefault()
-      //Save color
-      currColor = $(this).css('color')
-      //Add color effect to button
-      $('#add-new-event').css({
-        'background-color': currColor,
-        'border-color'    : currColor
-      })
-    })
-    $('#add-new-event').click(function (e) {
-      e.preventDefault()
-      //Get value and make sure it is not null
-      var val = $('#new-event').val()
-      if (val.length == 0) {
-        return
+    });
+    var calendar = $('#calendar').fullCalendar({
+      editable: true,
+      events: APP_URL + "/Encounter",
+      displayEventTime: true,
+      editable: true,
+      eventRender: function (event, element, view) {
+        if (event.allday === 'true') {
+          event.allday = true;
+        } else {
+          event.allday = false;
+        }
+      },
+      selectable: true,
+      selectHelper: true,
+      select: function (start, end, allDay) {
+        var title = prompt('Event Title:');
+        if (title) {
+          var start = moment(start, 'DD.MM.YYYY').format('YYYY-MM-DD');
+          var end = moment(start, 'DD.MM.YYYY').format('YYYY-MM-DD');
+          $.ajax({
+            type: "POST",
+            url: APP_URL + "/Encounter",
+            data: {
+              '_token': $('input[name=_token]').val(),
+              'title': title,
+              'start': start,
+              'end': start,
+              'club_home_id':1,
+              'club_visitor_id':1
+            },
+            success: function (data) {
+              displayMessage("Se Agrego un nuevo Encuentro");
+            }
+          });
+          calendar.fullCalendar('renderEvent',
+          {
+            title: title,
+            start: start,
+            end: end,
+            allDay: allDay
+          },
+          true
+          );
+        }
+        calendar.fullCalendar('unselect');
+      },
+      eventDrop: function (event, delta) {
+        var start = moment(event.start, 'DD.MM.YYYY').format('YYYY-MM-DD');
+        var end = moment(event.start, 'DD.MM.YYYY').format('YYYY-MM-DD');
+        $.ajax({
+          url: APP_URL + '/Encounter/'+ event.id,
+          data: {
+            '_token': $('input[name=_token]').val(),
+            'title':event.title,
+            'start':start,
+            'end':end,
+            'id':event.id
+          },
+          type: "PUT",
+          success: function (response) {
+            displayMessage("Encuentro Editado con Exito");
+          }
+        });
+      },
+      eventClick: function (event) {
+        var deleteMsg = confirm("Seguro que desea eliminar este encuentro?");
+        if (deleteMsg) {
+          $.ajax({
+            type: "DELETE",
+            url: APP_URL + '/Encounter/'+event.id,
+            data:{'_token': $('input[name=_token]').val(),},
+            success: function (response) {
+              if(parseInt(response) > 0) {
+                $('#calendar').fullCalendar('removeEvents', event.id);
+                displayMessage("Encuentro Eliminado con Exito");
+              }
+            }
+          });
+        }
       }
-
-      //Create events
-      var event = $('<div />')
-      event.css({
-        'background-color': currColor,
-        'border-color'    : currColor,
-        'color'           : '#fff'
-      }).addClass('external-event')
-      event.html(val)
-      $('#external-events').prepend(event)
-
-      //Add draggable funtionality
-      ini_events(event)
-
-      //Remove event from text input
-      $('#new-event').val('')
+    });
+  });
+  function displayMessage(message) {
+    swal({
+        title: "Exito!",
+        text: message,
+        icon: "success",
     })
-  });
-
-
-$('#btnEdit').click(function(){
-  var id=$('#modalEditid');
-  $.ajax({
-    type: "PUT",
-    url: APP_URL+"/Club/"+id.val(),
-    dataType: "json",
-    data:{
-      '_token': $('input[name=_token]').val(),
-      'name':$("#modalEditname").val(),
-      'rif':$("#modalEditrif").val(),
-      'address':$("#modalEditaddress").val(),
-      'mision':$("#modalEditmision").val(),
-      'history':$("#modalEdithistory").val(),
-      'stadium_id':$("#modalEditstadium_id").val(),
-      'email':$("#modalEditemail").val(),
-      'phone_number': $("#modalEditphone_number").val()
-    },
-    success: function(response){
-      location.reload(true);
-    }
-  });
-});
+  }
 
 </script>
 @endsection
 @section('headerContent')
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-xl-3 col-lg-3 col-md-6">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <span class="h5 font-weight-bold">Crear Encuentro</span>
-            </div>
-            <div class="col-auto">
-              <a href="#" data-target='#createEncounter' data-toggle='modal' title data-original-title="Agregar Encuentro" class='text-white'>
-                <div class="btn-icons btn-rounded btn bg-danger text-white shadow">
-                  <i class="fa fa-plus text-white"></i>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="response"></div>
 @endsection
 @section('content')
 <div class="row">
@@ -190,15 +118,13 @@ $('#btnEdit').click(function(){
       <div class="card-body">
         <!-- the events -->
         <div id="external-events">
-          <div class="external-event bg-success">Lunch</div>
-          <div class="external-event bg-warning">Go home</div>
-          <div class="external-event bg-info">Do homework</div>
-          <div class="external-event bg-primary">Work on UI design</div>
-          <div class="external-event bg-danger">Sleep tight</div>
+          @foreach($data as $item)
+            <div class="external-event bg-success">{{$item->title}}</div>
+          @endforeach
           <div class="checkbox">
             <label for="drop-remove">
               <input type="checkbox" id="drop-remove">
-              remove after drop
+              <b> ELIMINAR UN ENCUENTRO </b>
             </label>
           </div>
         </div>
@@ -213,6 +139,7 @@ $('#btnEdit').click(function(){
       <div class="card-body p-0">
         <!-- THE CALENDAR -->
         <div id="calendar"></div>
+
       </div>
       <!-- /.card-body -->
     </div>

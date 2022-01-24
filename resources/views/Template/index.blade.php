@@ -7,30 +7,24 @@
 @endsection
 @section('js')
 <script>
-  $('#dni_input').on('keyup',function(){
-    $.ajax({
-      type: "GET",
-      url: APP_URL+"/Athlete/SearchAthleta/"+ $('#dni_input').val(),
-      dataType: "json",
-      success: function(response){
-        body='Cedula - Nombre'
-        for (var i = response.length - 1; i >= 0; i--) {
-          body+='<li>'+response[i].dni+' - '+response[i].name + '</li>';
-        }
-        html='<ul>'+body+'</ul>';
-        $('#search').html(html);
-      }
+  
+  // (document).ready(function(){
+
+  jQuery(document).ready(function($){
+    $(document).ready(function() {
+        $('#dniInput').select2();
     });
   });
 
-  $('select[name="address_id"]').hover(function(){
-    var select=$('select[name="address_id"] option:selected');
-    var x=$('#otraAddress');
-    if(select.val() == x.val()){
-      $('#address').removeClass('d-none');
-    }     
-  });
+  // $('select[name="address_id"]').hover(function(){
+  //   var select=$('select[name="address_id"] option:selected');
+  //   var x=$('#otraAddress');
+  //   if(select.val() == x.val()){
+  //     $('#address').removeClass('d-none');
+  //   }     
+  // });
 
+  // });
 </script>
 @endsection
 @section('headerContent')

@@ -26,6 +26,9 @@
     <script src="{{asset('plugins/sweetalert/docs/assets/sweetalert/sweetalert.min.js')}}"></script>
 
     <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+    
+    <link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
+    
     <link rel="stylesheet" href="{{asset('plugins/css/main.css')}}">
     @yield('header_js')
   </head>
@@ -88,6 +91,9 @@
     <script src="{{ asset('plugins/fastclick/fastclick.js') }}"></script>
     <script src="{{ asset('plugins/moment/moment.js') }}"></script>
     <script src="{{ asset('plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+    
+    <script src="{{ asset('plugins/select2/select2.min.js') }}"></script>
+
     @yield('pugins_js')
     <script>
       var APP_URL={!!json_encode(url('/'))!!};

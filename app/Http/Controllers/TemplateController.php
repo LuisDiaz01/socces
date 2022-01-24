@@ -17,8 +17,9 @@ class TemplateController extends Controller
      */
     public function index(){
         $template=Template::all();
+        $athlete=Athlete::all();
         $division=Division::all();
-        return view('Template.index', compact('template','division'));
+        return view('Template.index', compact('template','division','athlete'));
     }
 
     /**
@@ -39,13 +40,16 @@ class TemplateController extends Controller
      */
     public function store(Request $request)
     {
-        $athlete=Athlete::where('dni',$request->dni)->first();
-
+        
         $template=Template::create([
-            'athlete_id'=>$athlete->id,
+            'athlete_id'=>$request->dniInput,
             'division_id'=>$request->division_id,
         ]);
-        return Redirect::route('Template.index')->withSuccess('Se ha fichado el atleta con exito');
+        return Redirect::route('Template.index')->with('success','<script>swal({
+            title: "Exito!",
+            text: "Se a agregado un nuevo Atleta",
+            icon: "success",
+        })</script>');
     }
 
     /**

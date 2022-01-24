@@ -4,9 +4,11 @@ namespace Club\Http\Controllers;
 
 use Club\Encounter;
 use Illuminate\Http\Request;
+use Response;
 
 class EncounterController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +16,20 @@ class EncounterController extends Controller
      */
     public function index()
     {
-        $encounter=Encounter::all();
-        return view('Encounter.index',compact('encounter'));
-    }
-    public function get_encounter()
-    {
-        $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
-        $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
-        $data= Encounter::whereDate('start', '>=', $start)->whereDate('end', '<=', $end)->get(['id','title','start', 'end']);    
-        return $data;
-    }
 
+
+        if(request()->ajax()){
+            $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
+            $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
+            $data= Encounter::whereDate('start', '>=', $start)->whereDate('end', '<=', $end)->get(['id','title','start', 'end']);    
+            return Response::json($data);
+        }else{
+            $data= Encounter::all();    
+            // dd($data);
+        }
+        return view('Encounter.index',compact('data'));
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -40,7 +45,7 @@ class EncounterController extends Controller
             'club_home_id'=>$request->club_home_id,
             'club_visitor_id'=>$request->club_visitor_id
         ]);
-        return $encounter;
+        return Response::json($encounter);
     }
 
     /**
@@ -60,7 +65,7 @@ class EncounterController extends Controller
             'club_home_id'=>$request->club_home_id,
             'club_visitor_id'=>$request->club_visitor_id
         ]);
-        return $encounter;
+        return Response::json($encounter);
     }
 
     /**
@@ -71,8 +76,7 @@ class EncounterController extends Controller
      */
     public function destroy($id)
     {
-        $encounter=Encounter::where('id',$id)->first();
-        $encounter->delete();
-        return $encounter;
+        $encounter=Encounter::where('id',$id)->delete();
+        return Response::json($encounter);
     }
 }

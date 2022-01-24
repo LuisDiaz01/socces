@@ -20,14 +20,6 @@
                                 <li><a  href="{{ route('landing.template') }}">Plantilla</a></li>
                                 <li><a  href="{{ route('landing.encounter') }}">Actividades</a></li>
                                 <li><a  href="{{ route('landing.galery') }}">Noticias</a></li>
-                                <li><a  href="#!">Contactos</a></li>
-                                <!-- <li><a href="#">paginas <i class="ti-angle-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a href="#">random</a></li>
-                                        <li><a href="#">random</a></li>
-                                        <li><a href="#">random</a></li>
-                                    </ul>
-                                </li> -->
                             </ul>
                         </nav>
                     </div>

@@ -44,7 +44,7 @@ class AthleteController extends Controller
             'goles'=>$request->goles,
             'attendances'=>$request->attendances
         ]);
-        return Redirect::route('Template.index')->->with('success','<script>swal({
+        return Redirect::route('Template.index')->with('success','<script>swal({
             title: "Exito!",
             text: "Se a agregado un nuevo Atleta",
             icon: "success",
@@ -58,7 +58,12 @@ class AthleteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function searchAthleta($dni){
-        $athlete=Athlete::where('dni','like','%'.$dni.'%')->get();
+        if ($dni==0) {
+            // code...
+            $athlete=Athlete::all()->get();
+        }else{
+            $athlete=Athlete::where('dni','like','%'.$dni.'%')->get();
+        }
         return $athlete;
     }
 

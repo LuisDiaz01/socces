@@ -13,18 +13,17 @@
                 <form class="form-horizontal" method="POST" action="{{ route('Template.store') }}">
                   @csrf
                   <div class="form-group{{ $errors->has('dni') ? ' has-error' : '' }}">
-                    <label>Cedula</label>
-                    <input id="dni_input" name="dni" type="text" placeholder="Cedula del Atleta" class="form-control" autofocus required>
+                    <select id="dniInput" name="dniInput" class='form-control' required>
+                        <option value=''>Seleccionar una Cedula de un Atleta</option>
+                        @foreach($athlete as $item)
+                        <option value='{{$item->id}}'>{{$item->name}}{{$item->lastname}} - {{$item->dni}} </option>
+                        @endforeach
+                    </select>
                     @if ($errors->has('dni'))
                     <span class="help-block">
                       <strong>{{ $errors->first('dni') }}</strong>
                     </span>
                     @endif
-
-                    <div>
-                      <div id='search'></div>
-                    </div>
-
                   </div>
 
                   <div class="form-group{{ $errors->has('division_id') ? ' has-error' : '' }}">
