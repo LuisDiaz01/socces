@@ -52,7 +52,8 @@ Route::group(['middleware'=>['verifiUser']],function(){
 	Route::get('/Profile/upDate',['as'=>'profile.upData', 'uses'=>'ProfileController@update'] );
 	/*falta el editar para los usuarios*/
 	Route::get('/Users/upDate/{id}',['as'=>'Users.up_date','uses'=>'UsersController@update']);
-	
+Route::get('/telescope', ['as'=>'telescope','uses'=>'\Laravel\Telescope\Http\Controllers\HomeController@index ']);
+		
 /*
 |	Admin rol equal 0
 */
@@ -76,14 +77,19 @@ Route::group(['middleware'=>['verifiUser']],function(){
 		Route::apiResource('/Division','DivisionController');
 		Route::apiResource('/Encounter','EncounterController');
 		Route::apiResource('/Network','NetworkController');
-		Route::apiResource('/Post','PostController');
 		Route::apiResource('/Rol','RolController'); //controlador costruido
 		Route::apiResource('/Stadium','StadiumController');
 		Route::apiResource('/Template','TemplateController');
 		Route::apiResource('/Athlete','AthleteController');
 		Route::apiResource('/Users','UsersController');
+		Route::POST('/Type','TypeController@store');
 		
-		Route::get('/PostCreate', ['as'=>'Post.create','uses'=>'PostController@create']);
+		Route::GET('/Post', ['as'=>'Post.index','uses'=>'PostController@index']);
+		Route::GET('/PostCreate', ['as'=>'Post.create','uses'=>'PostController@create']);
+		Route::GET('/PostEdit/{post}', ['as'=>'Post.edit','uses'=>'PostController@edit']);
+		Route::POST('/Post/Store', ['as'=>'Post.store','uses'=>'PostController@store']);
+		Route::POST('/PostUpdate/{post}', ['as'=>'Post.update','uses'=>'PostController@update']);
+		Route::DELETE('/Post/{post}', ['as'=>'Post.delete','uses'=>'PostController@destroy']);
 		
 		/*
 		|	End API

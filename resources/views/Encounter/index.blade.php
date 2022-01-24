@@ -1,10 +1,16 @@
 @extends('layouts.appDashboard')
 @section('title','Club')
 @section('nameTitleTemplate','Club')
-@section('modales')
-{{-- @include('layouts.modales.Club.modalCreateEncounter') --}}
+@section('header_js')
+<link rel="stylesheet" href="{{ asset('plugins/fullcalendar/fullcalendar.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/fullcalendar/fullcalendar.print.css') }}" media="print">   
 @endsection
 @section('js')
+
+<script src="{{ asset('plugins/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+<script src="{{ asset('plugins/fullcalendar/dist/locale/es.js') }}"></script>
+
+
 <script>
 
   $(document).ready(function () {
@@ -18,6 +24,7 @@
       events: APP_URL + "/Encounter",
       displayEventTime: true,
       editable: true,
+      locale: 'es',
       eventRender: function (event, element, view) {
         if (event.allday === 'true') {
           event.allday = true;
@@ -28,7 +35,7 @@
       selectable: true,
       selectHelper: true,
       select: function (start, end, allDay) {
-        var title = prompt('Event Title:');
+        var title = prompt('Titulo del Evento:');
         if (title) {
           var start = moment(start, 'DD.MM.YYYY').format('YYYY-MM-DD');
           var end = moment(start, 'DD.MM.YYYY').format('YYYY-MM-DD');

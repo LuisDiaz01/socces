@@ -70,7 +70,7 @@
 
                 <a class="btn-danger btn-icons btn-rounded btn" onclick="deletes('{{$item->id}}','/Post/')" title="Borrar Post" href="#"><i class="fa fa-remove"></i></a>
 
-                <a class="btn-info btn-icons btn-rounded btn" title="Editar Post" href="{{ route('Post.update', $item->id ) }}"><i class="fa fa-edit"></i></a>
+                <a class="btn-info btn-icons btn-rounded btn" title="Editar Post" href="{{ route('Post.edit', $item ) }}"><i class="fa fa-edit"></i></a>
               </td>
 
             </tr>

@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="col">
-                    <h3><span class="fa fa-plus"></span> 
+                    <h3 class="text-center"> 
                         Crear Club
                     </h3>
                 </div>
@@ -13,8 +13,8 @@
                 <form class="form-horizontal" method="POST" action="{{route('Club.store')}}" accept-charset="utf-8" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                        <input type='file' id="image" name="image[]" accept=".png, .jpg, .jpeg" />
-                        <label for="imageUpload"></label>
+                        <label for="imageUpload">Logo del Equipo: </label>
+                        <input type='file' id="image" name="image[]" required accept=".png, .jpg, .jpeg" />
                         @if ($errors->has('image'))
                         <span class="help-block">
                             <strong>{{ $errors->first('image') }}</strong>
@@ -30,7 +30,6 @@
                         </span>
                         @endif
                     </div>
-
                     <div class="form-group{{ $errors->has('rif') ? ' has-error' : '' }}">
                         <input id="rif" type="text" placeholder="Rif del Club" class="form-control" name="rif" autofocus required >
                         @if ($errors->has('rif'))
@@ -39,7 +38,6 @@
                         </span>
                         @endif
                     </div>
-
                     <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                         <input id="address" type="text" placeholder="Dirección del Club" class="form-control" name="address" autofocus required >
                         @if ($errors->has('address'))
@@ -48,34 +46,18 @@
                         </span>
                         @endif
                     </div>
-
-                    <div class="form-group{{ $errors->has('mision') ? ' has-error' : '' }}">
-                        <textarea id="mision" name="mision" id="" cols="30" rows="10"></textarea>
-                        @if ($errors->has('mision'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('mision') }}</strong>
-                        </span>
-                        @endif
-                    </div>
-
-                    <div class="form-group{{ $errors->has('history') ? ' has-error' : '' }}">
-                        <textarea id="history" name="history" id="" cols="30" rows="10"></textarea>
-                        @if ($errors->has('history'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('history') }}</strong>
-                        </span>
-                        @endif
-                    </div>
                     
                     <div class="form-group{{ $errors->has('stadium_id') ? ' has-error' : '' }}">
-                        <select id="stadium_id" class='form-control' value='0' name="stadium_id" size='1'>
-                            <option value="0">Estadios</option>
-                            @foreach($stadium as $item)
-                            <option value="{{$item->id}}">{{$item->id}} - {{$item->name}}</option>
-                            @endforeach 
-                        </select>
+                        <input id="nameStadium" type="text" placeholder="Nombre del Estadio" class="form-control" name="nameStadium" autofocus required >
+                        @if ($errors->has('nameStadium'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('nameStadium') }}</strong>
+                        </span>
+                        @endif
                     </div>
 
+                    <hr>
+                    <p class="text-center">CONTACTOS</p>
                     {{-- Redes sociales --}}
                     <div class="form-group{{ $errors->has('facebook') ? ' has-error' : '' }}">
                         <input id="facebook" type="text" placeholder="Facebook" class="form-control" name="facebook" autofocus required >

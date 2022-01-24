@@ -6,16 +6,20 @@
 @endsection
 @section('js')
 <script>
- $('textarea').wysihtml5({
-    toolbar: { fa: true }
+  
+  jQuery(document).ready(function($){
+    $(document).ready(function() {
+        $('#type_id').select2();
+    });
   });
+
 
   $(document).ready(function(){
     var div= $('#div_category');
-    div.html('<select id="type_id" class="form-control" value="0" name="type_id" size="1"><option value="0">Categoria</option>');
+    // div.html('<select id="type_id" name="type_id" class="form-control" required><option value="0">Categoria</option>');
     loadCategory();
   });
-
+  
   function loadCategory(){
     /*var select= $('#category_id');*/
     var div= $('#type_id');
@@ -35,7 +39,6 @@
 
   function createCategory(){
     var name= $('#modal_category');
-    var div= $('#category_id');
     $.ajax({
       type:'POST',
       url:APP_URL+'/Type',
@@ -45,9 +48,12 @@
       },
       success: function(response){
         var html= html + '<option value="'+ response.id +'">'+ response.name +'</option>';
-        div.append(html);
-        btn_create_category.click();
-        alert('response');
+        $('#type_id').append(html);
+        swal({
+            title: "Exito!",
+            text: "Se a agregado una nuevo Categoria",
+            icon: "success",
+        })
       }
     });
   }
@@ -81,10 +87,21 @@
                           </span>
                           @endif
                       </div>
-                     
-                      <div class="form-group{{ $errors->has('type_id') ? ' has-error' : '' }}">
-                          <div id="div_category"></div>
-                          <a href="#" class="btn btn-sm btn-success" data-target='#createCategory' data-toggle='modal' title="Crear una Categoria"><i class="fa fa-plus"></i> </a>
+
+                      <div class="form-group{{ $errors->has('type_id') ? ' has-error' : '' }} row">
+                        <div class=col-11>
+                            <select id="type_id" name="type_id" class='form-control' required>
+                              <option value=''>Seleccionar una Categoria para la Publicación</option>
+                              @foreach($type as $item)
+                              <option value='{{$item->id}}'>{{$item->name}}</option>
+                              @endforeach
+                            </select>
+                          
+                        </div>
+                        <div class=col>
+                            <a href="#!" class="btn btn-primary" data-toggle='modal' data-target='#createCategory' title="Agregar una categoria nueva"><i class="fa fa-plus"></i> </a>
+                        </div>
+                            
                       </div>
 
                       <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">

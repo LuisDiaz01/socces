@@ -15,8 +15,6 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.addons.css')}}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap4.css') }}">
     <!-- endinject -->
-    <link rel="stylesheet" href="{{ asset('plugins/fullcalendar/fullcalendar.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/fullcalendar/fullcalendar.print.css') }}" media="print">
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('assets/css/shared/style.css')}}">
     <!-- endinject -->
@@ -24,8 +22,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/demo_1/style.css')}}">
     <!-- End Layout styles -->
     <script src="{{asset('plugins/sweetalert/docs/assets/sweetalert/sweetalert.min.js')}}"></script>
-
-    <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
     
     <link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
     
@@ -71,8 +67,7 @@
     <!-- End custom js for this page-->
     
     <!-- My Plugins -->
-    <script src="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
-
+    
     <script src="{{asset('plugins/input-mask/jquery.inputmask.js')}}"></script>
     <script src="{{asset('plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
     <script src="{{asset('plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
@@ -90,7 +85,7 @@
     <!-- FastClick -->
     <script src="{{ asset('plugins/fastclick/fastclick.js') }}"></script>
     <script src="{{ asset('plugins/moment/moment.js') }}"></script>
-    <script src="{{ asset('plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+    
     
     <script src="{{ asset('plugins/select2/select2.min.js') }}"></script>
 

@@ -3,6 +3,7 @@
 namespace Club\Http\Controllers;
 
 use Club\Post;
+use Club\Type;
 use Validator, Redirect, Response, File;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,18 @@ class PostController extends Controller
     public function create()
     {
         $post=new Post;
-        return view('Post.create');
+        $type=Type::all();
+        return view('Post.create',compact('post','type'));
+    }
+    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Post $post){
+        $type=Type::all();
+        return view('Post.edit',compact('post','type'));
     }
 
     /**
@@ -48,8 +60,15 @@ class PostController extends Controller
             'content'=>$request->content,
             'type_id'=>$request->type_id 
         ]);
-        return Redirect::route('Post.index')->withSuccess('Se ha credo un club con exito');
+        return Redirect::route('Post.index')->withSuccess('<script>swal({
+            title: "Exito!",
+            text: "Se a agregado un nuevo Post.",
+            icon: "success",
+        })</script>');
     }
+
+
+
 
     /**
      * Update the specified resource in storage.
@@ -75,7 +94,11 @@ class PostController extends Controller
             'content'=>$request->content,
             'type_id'=>$request->type_id,
         ]);
-        return $post;
+        return Redirect::route('Post.index')->withSuccess('<script>swal({
+            title: "Exito!",
+            text: "Se a Edita el Post'.$post->title.' con exito.",
+            icon: "success",
+        })</script>');
     }
 
     /**

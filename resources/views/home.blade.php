@@ -1,9 +1,6 @@
 @extends('layouts.appDashboard')
 @section('title','Inicio')
 @section('nameTitleTemplate','Inicio')
-@section('js')
-
-@endsection
 @section('content')
 <div class="row">
 	<div class="col-md-12 col-lg-12 col-xl-12 grid-margin">

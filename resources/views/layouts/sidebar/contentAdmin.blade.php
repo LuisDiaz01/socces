@@ -15,11 +15,11 @@
     </ul>
   </div>
 </li> --}}
-<li class="nav-item">
+<!-- <li class="nav-item">
   <a class="nav-link" href="{{route('Club.index')}}">
     <i class="ni ni-shop text-orange"></i> Bitacora
   </a>
-</li>
+</li> -->
 <li class="nav-item">
   <a class="nav-link" href="{{route('Club.index')}}">
     <i class="ni ni-shop text-orange"></i> Clubs
@@ -50,8 +50,9 @@
     <i class="ni ni-book-bookmark text-indigo"></i> Perfiles Usuarios
   </a>
 </li>
-<li class="nav-item">
+{{--<li class="nav-item">
   <a class="nav-link" href="{{route('Users.index')}}">
     <i class="ni ni-book-bookmark text-indigo"></i> Reportes
   </a>
 </li>
+--}}

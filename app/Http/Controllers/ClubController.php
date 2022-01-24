@@ -7,6 +7,7 @@ use Club\Stadium;
 use Club\Network;
 use Validator, Redirect, Response, File;
 use Illuminate\Http\Request;
+use Exception;
 
 class ClubController extends Controller
 {
@@ -41,25 +42,37 @@ class ClubController extends Controller
      */
     public function store(Request $request)
     {
-
-        $image=$request->file('image');
-        $destinationPath = 'public/image/'; // upload path
-        $profileImage = date('YmdHis') . "." . $image[0]->getClientOriginalExtension();
-        $image[0]->move($destinationPath, $profileImage);
-        $network=Network::create(['facebook'=>$request->facebook,'twitter'=>$request->twitter,'instagram'=>$request->instagram]);
-        $club= Club::create([
-            'image'=>$destinationPath .''.$profileImage,
-            'name'=>$request->name,
-            'address'=>$request->address,
-            'mision'=>$request->mision,
-            'history'=>$request->history,
-            'stadium_id'=>$request->stadium_id,
-            'network_id'=>$network->id,
-            'rif'=>$request->rif,
-            'email'=>$request->email,
-            'phone_number'=>$request->phone_number,
-        ]);
-        return Redirect::route('Club.index')->withSuccess('Se ha credo un club con exito');
+        try {
+            $stadium=Stadium::create(['name'=>$request->nameStadium]);
+            $image=$request->file('image');
+            $destinationPath = 'public/image/'; // upload path
+            $profileImage = date('YmdHis') . "." . $image[0]->getClientOriginalExtension();
+            $image[0]->move($destinationPath, $profileImage);
+            $network=Network::create(['facebook'=>$request->facebook,'twitter'=>$request->twitter,'instagram'=>$request->instagram]);
+            $club= Club::create([
+                'image'=>$destinationPath .''.$profileImage,
+                'name'=>$request->name,
+                'address'=>$request->address,
+                'stadium_id'=>$stadium->id,
+                'network_id'=>$network->id,
+                'rif'=>$request->rif,
+                'email'=>$request->email,
+                'phone_number'=>$request->phone_number,
+            ]);
+            return Redirect::route('Club.index')->withSuccess('<script>swal({
+                title: "Exito!",
+                text: "Se a agregado un nuevo Club",
+                icon: "success",
+            })</script>');
+            
+        } catch (Exception $e) {
+            return Redirect::route('Club.index')->withSuccess('<script>swal({
+                title: "Error!",
+                text: "Se Produjo un error",
+                icon: "error",
+            })</script>');
+            
+        }
     }
 
     /**

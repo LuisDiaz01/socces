@@ -175,6 +175,7 @@ return [
         Club\Providers\AuthServiceProvider::class,
         // Club\Providers\BroadcastServiceProvider::class,
         Club\Providers\EventServiceProvider::class,
+        Club\Providers\TelescopeServiceProvider::class,
         Club\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
@@ -227,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+
 
     ],
 

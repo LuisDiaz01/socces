@@ -4,7 +4,7 @@ namespace Club\Http\Controllers;
 
 use Club\Type;
 use Illuminate\Http\Request;
-
+use Response;
 class TypeController extends Controller
 {
     /**
@@ -29,7 +29,9 @@ class TypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        
+        $type=Type::create(['name'=>$request->name] );
+        return $type;
+           
     }
 
     /**
