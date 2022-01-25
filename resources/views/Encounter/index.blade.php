@@ -16,7 +16,7 @@
   $(document).ready(function () {
     $.ajaxSetup({
       headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        'X-CSRF-TOKEN': $('input[name=_token]').val()
       }
     });
     var calendar = $('#calendar').fullCalendar({
@@ -37,8 +37,8 @@
       select: function (start, end, allDay) {
         var title = prompt('Titulo del Evento:');
         if (title) {
-          var start = moment(start, 'DD.MM.YYYY').format('YYYY-MM-DD');
-          var end = moment(start, 'DD.MM.YYYY').format('YYYY-MM-DD');
+          var start = moment(start, 'DD.MM.YYYY[T]HH:mm:ss').format('YYYY-MM-DD[T]HH:mm:ss');
+          var end = moment(start, 'DD.MM.YYYY[T]HH:mm:ss').format('YYYY-MM-DD[T]HH:mm:ss');
           $.ajax({
             type: "POST",
             url: APP_URL + "/Encounter",
@@ -67,8 +67,8 @@
         calendar.fullCalendar('unselect');
       },
       eventDrop: function (event, delta) {
-        var start = moment(event.start, 'DD.MM.YYYY').format('YYYY-MM-DD');
-        var end = moment(event.start, 'DD.MM.YYYY').format('YYYY-MM-DD');
+        var start = moment(event.start, 'DD.MM.YYYY').format('YYYY-MM-DD[T]HH:mm:ss');
+        var end = moment(event.start, 'DD.MM.YYYY').format('YYYY-MM-DD[T]HH:mm:ss');
         $.ajax({
           url: APP_URL + '/Encounter/'+ event.id,
           data: {

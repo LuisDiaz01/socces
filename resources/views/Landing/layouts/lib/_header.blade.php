@@ -19,7 +19,7 @@
                                 <li><a  href="{{ route('landing.index') }}">Inicio</a></li>
                                 <li><a  href="{{ route('landing.template') }}">Plantilla</a></li>
                                 <li><a  href="{{ route('landing.encounter') }}">Actividades</a></li>
-                                <li><a  href="{{ route('landing.galery') }}">Noticias</a></li>
+                                <li><a  href="{{ route('landing.galery') }}">Noticias</a></li> 
                             </ul>
                         </nav>
                     </div>

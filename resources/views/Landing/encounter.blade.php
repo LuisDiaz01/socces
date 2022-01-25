@@ -1,5 +1,6 @@
 @extends('Landing.layouts.app')
 @section('title','Actividades')
+
 @section('content')
 
     <!-- portfolio_image_area  -->
@@ -27,10 +28,24 @@
                         </thead>
                         <tbody>
                             @forelse($encounter as $item)
+                                @php
+                                if (isset( explode('VS', $item->title )[1])) {
+                                    $word=explode('VS',$item->title);
+                                }elseif (isset(explode('vs',$item->title)[1])) {
+                                    $word=explode('vs',$item->title);
+                                    
+                                }elseif (isset(explode('Vs',$item->title)[1])) {
+                                    // code...
+                                    $word=explode('Vs',$item->title);
+                                }elseif (isset(explode('vS',$item->title)[1])) {
+                                    // code...
+                                    $word=explode('vS',$item->title);
+                                }
+                                @endphp
                                 <tr>
-                                    <td class="text-center">{{ $item->ClubHome->name }}</td>
+                                    <td class="text-center">{!! $word[0] !!}</td>
                                     <td class="text-center">vs</td>
-                                    <td class="text-center">{{ $item->ClubVisitor->name }}</td>
+                                    <td class="text-center">{!! $word[1] !!}</td>
                                     <td class="text-center bg-info">{{ $item->start }}</td>
                                 </tr>
                             @empty
