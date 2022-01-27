@@ -175,9 +175,8 @@ return [
         Club\Providers\AuthServiceProvider::class,
         // Club\Providers\BroadcastServiceProvider::class,
         Club\Providers\EventServiceProvider::class,
-        Club\Providers\RouteServiceProvider::class,
+         Club\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-
     ],
 
     /*
