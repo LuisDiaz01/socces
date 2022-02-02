@@ -1,19 +1,49 @@
 @extends('layouts.appDashboard')
-@section('title',' Usuarios')
+@section('title',' Atletas')
 @section('nameTitleTemplate','Usuarios')
 @section('modales')
-@include('layouts.modales.Athlete.UserEdit')
+@include('layouts.modales.Athlete.CreateAthleteModal')
+@include('layouts.modales.Athlete.Edit')
 @endsection
 @section('js')
   <script type="text/javascript">
     function PasarDatos(id){
+      var id=id;
       $('#id_edit_input').val(id);
+
       $('#dni_input_edit').val( $('#dni'+id).val());
       $('#name_input_edit').val( $('#name'+id).val());
       $('#lastname_input_edit').val( $('#lastname'+id).val());
       $('#email_input_edit').val( $('#email'+id).val());
+      $('#goles_input_edit').val( $('#goles'+id).val());
+      $('#attendance_input_edit').val( $('#attendances'+id).val());
+
     }
   </script>
+@endsection
+@section('headerContent')
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-6">
+      <div class="card card-stats">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <span class="h5 font-weight-bold">Crear Atleta</span>
+            </div>
+            <div class="col-auto">
+              <a href="#" data-target='#createAthlete' data-toggle='modal' title data-original-title="Agregar Usuario" class='text-white'>
+                <div class="btn-icons btn-rounded btn bg-danger text-white shadow">
+                  <i class="fa fa-plus text-white"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 @section('content')
 <div class="row">
@@ -27,15 +57,16 @@
               <th scope="col">Cedula</th>
               <th scope="col">Nombre Y Apellido</th>
               <th scope="col">E-mail</th>
-              <th scope="col">Cargo</th>
               <th scope="col">Fecha De Nacimiento</th>
+              <th scope="col">Goles</th>
+              <th scope="col">Asistencias</th>
               <th scope="col">Created_at</th>
               <th scope="col">Updated_at</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            @forelse($user as $item)
+            @forelse($athlete as $item)
             <tr id='{{$item->id}}'>
               <td>
                 <input type="hidden" id='id{{$item->id}}' value='{{$item->id}}'>
@@ -54,18 +85,25 @@
                 <label id='labelEmail{{$item->id}}'>{{$item->email}}</label>
                 <input class='d-none' id="email{{$item->id}}" value="{{$item->email}}">
               </td>
-              <td id='td_Rol{{$item->id}}'>
-                <label id='labelRol{{$item->id}}'>{{$item->rol->rol}}</label>
-                <input class='d-none' id="email{{$item->id}}" value="{{$item->email}}">
+              <td id='td_date_n{{$item->id}}'>
+                <label id="labelDateN{{$item->id}}">{{$item->goles }}</label>
+                <input class="d-none" value="{{$item->goles}}" id='gole{{$item->id}}'>
               </td>
+              <td id='td_date_n{{$item->id}}'>
+                <label id="labelDateN{{$item->id}}">{{$item->attendances }}</label>
+                <input class="d-none" value="{{$item->attendances}}" id='attendances{{$item->id}}'>
+              </td>
+
               <td id='td_date_n{{$item->id}}'>
                 <label id="labelDateN{{$item->id}}">{{$item->date_n }}</label>
                 <input class="d-none" value="{{$item->date_n}}" id='date_n{{$item->id}}'>
               </td>
+              
               <td id='td_Create{{$item->id}}'>{{ $item->created_at }}</td>
               <td id='td_Edit{{$item->id}}'>{{ $item->updated_at }}</td>
               <td>
-                <a class="btn-info btn-icons btn-rounded btn" title="Editar User" data-target='#editUser' data-toggle='modal'  id="btn-1_{{$item->id}}" onclick="PasarDatos({{$item->id}})" href="#!"><i class="fa fa-edit"></i></a>
+                <a class="btn-danger btn-icons btn-rounded btn" href="{{ route('Delete.athlete', $item) }}" title="Borrar usuario" href="#"><i class="fa fa-remove"></i></a>
+                <a class="btn-info btn-icons btn-rounded btn" title="Editar User" data-target='#editAthlete' data-toggle='modal' id='athlete_{{$item->id}}' onclick="PasarDatos({{$item->id}})" href="#!"><i class="fa fa-edit"></i></a>
               </td>
             </tr>
             @empty
@@ -77,6 +115,7 @@
             @endforelse
           </tbody>
         </table>
+        {{ $athlete->links() }}
       </div>
     </div>
   </div>

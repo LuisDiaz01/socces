@@ -81,6 +81,9 @@ Route::get('/telescope', ['as'=>'telescope','uses'=>'\Laravel\Telescope\Http\Con
 		Route::apiResource('/Stadium','StadiumController');
 		Route::apiResource('/Template','TemplateController');
 		Route::apiResource('/Athlete','AthleteController');
+		Route::get('/Athlete/Delete/{athlete}','AthleteController@destroy')->name('Delete.athlete');
+		Route::post('/Athlete/Edit','AthleteController@edit')->name('Athlete.edit');
+		Route::post('/Users/list/Edit','AthleteController@user_edit')->name('User.list.edit');
 		Route::apiResource('/Users','UsersController');
 		Route::POST('/Type','TypeController@store');
 		

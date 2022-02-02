@@ -3,6 +3,7 @@
 namespace Club\Http\Controllers;
 
 use Club\Athlete;
+use Club\User;
 use Illuminate\Http\Request;
 use Redirect;
 class AthleteController extends Controller
@@ -14,7 +15,8 @@ class AthleteController extends Controller
      */
     public function index()
     {
-        //
+        $athlete=Athlete::paginate(10);
+        return view('Users.athlete', compact('athlete'));
     }
 
     /**
@@ -44,7 +46,7 @@ class AthleteController extends Controller
             'goles'=>$request->goles,
             'attendances'=>$request->attendances
         ]);
-        return Redirect::route('Template.index')->with('success','<script>swal({
+        return back()->with('success','<script>swal({
             title: "Exito!",
             text: "Se a agregado un nuevo Atleta",
             icon: "success",
@@ -73,9 +75,41 @@ class AthleteController extends Controller
      * @param  \Club\Athlete  $athlete
      * @return \Illuminate\Http\Response
      */
-    public function edit(Athlete $athlete)
-    {
-        //
+    public function edit(Request $request){
+        $athlete=Athlete::where('id',$request->id)->first();
+        $athlete->update([
+           'name'=>$request->name,
+           'lastname'=>$request->lastname,
+           'email'=>$request->email,
+           'dni'=>$request->dni,
+           'date_n'=>$request->date_n,
+           'goles'=>$request->goles,
+           'attendances'=>$request->attendances 
+
+        ]);
+        
+        return back()->with('success','<script>swal({
+            title: "Exito!",
+            text: "Se a Editado con exito el Atleta",
+            icon: "success",
+        })</script>');
+
+    }
+    public function user_edit(Request $request){
+        $user=User::where('id',$request->id)->first();
+        $user->update([
+           'name'=>$request->name,
+           'lastname'=>$request->lastname,
+           'email'=>$request->email,
+           'dni'=>$request->dni,
+        ]);
+        
+        return back()->with('success','<script>swal({
+            title: "Exito!",
+            text: "Se a Editado con exito el Atleta",
+            icon: "success",
+        })</script>');
+
     }
 
     /**

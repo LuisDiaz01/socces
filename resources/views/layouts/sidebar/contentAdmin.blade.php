@@ -1,25 +1,8 @@
-{{-- <li class="nav-item">
-  <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-    <i class="menu-icon typcn typcn-document-add"></i>
-    <span class="menu-title">Clus</span>
-    <i class="menu-arrow"></i>
+<li class="nav-item">
+  <a class="nav-link" href="{{route('Athlete.index')}}">
+    <i class="ni ni-users text-orange"></i>Atletas
   </a>
-  <div class="collapse" id="auth">
-    <ul class="nav flex-column sub-menu">
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('.index')}}"> Profesore </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('.index')}}"> Estudiantes </a>
-      </li>
-    </ul>
-  </div>
-</li> --}}
-<!-- <li class="nav-item">
-  <a class="nav-link" href="{{route('Club.index')}}">
-    <i class="ni ni-shop text-orange"></i> Bitacora
-  </a>
-</li> -->
+</li>
 <li class="nav-item">
   <a class="nav-link" href="{{route('Club.index')}}">
     <i class="ni ni-shop text-orange"></i> Clubs
@@ -27,7 +10,7 @@
 </li>
 <li class="nav-item">
   <a class="nav-link" href="{{route('Template.index')}}">
-    <i class="ni ni-tv-2 text-pink"></i> Parrilla
+    <i class="ni ni-tv-2 text-pink"></i> Plantilla
   </a>
 </li>
 <li class="nav-item">
@@ -50,9 +33,3 @@
     <i class="ni ni-book-bookmark text-indigo"></i> Perfiles Usuarios
   </a>
 </li>
-{{--<li class="nav-item">
-  <a class="nav-link" href="{{route('Users.index')}}">
-    <i class="ni ni-book-bookmark text-indigo"></i> Reportes
-  </a>
-</li>
---}}

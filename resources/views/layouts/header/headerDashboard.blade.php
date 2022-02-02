@@ -1,7 +1,7 @@
 <div class="row page-title-header">
   <div class="col-12">
     <div class="page-header">
-      <h4 class="page-title">@yield('nameTitleTemplate')</h4>
+      <h2 class="page-title">@yield('nameTitleTemplate')</h2>
     </div>
   </div>
   <div class="col-12">
